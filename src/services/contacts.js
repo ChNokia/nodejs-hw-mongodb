@@ -4,7 +4,7 @@ export const getContacts = () => ContactCollection.find();
 
 export const getContactById = (id) => ContactCollection.findById(id);
 
-export const createStudent = async (payload) => {
+export const createContact = async (payload) => {
   const contact = await ContactCollection.create(payload);
 
   return contact;

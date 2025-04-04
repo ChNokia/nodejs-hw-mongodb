@@ -1,7 +1,7 @@
 import createHttpError from 'http-errors';
 
 import {
-  createStudent,
+  createContact,
   deleteContact,
   getContactById,
   getContacts,
@@ -29,7 +29,7 @@ export const getContactByIdController = async (req, res) => {
 };
 
 export const createContactController = async (req, res) => {
-  const data = await createStudent(req.body);
+  const data = await createContact(req.body);
 
   res.status(201).json({
     status: 201,
