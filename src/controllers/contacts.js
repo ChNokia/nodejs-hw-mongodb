@@ -8,9 +8,27 @@ import {
   updateContact,
 } from '../services/contacts.js';
 
+import { parsePaginationParams } from '../utils/parsePaginationParams.js';
+import { parseSortParams } from '../utils/parseSortParams.js';
+import { parseFilterParams } from '../utils/parseFilterParams.js';
+
 export const getContactsController = async (req, res) => {
-  const data = await getContacts();
-  res.json({ status: 200, message: 'Successfully found contacts!', data });
+  const { page, perPage } = parsePaginationParams(req.query);
+  const { sortOrder, sortBy } = parseSortParams(req.query);
+  const filter = parseFilterParams(req.query);
+
+  const data = await getContacts({
+    page,
+    perPage,
+    sortBy,
+    sortOrder,
+    filter,
+  });
+  res.json({
+    status: 200,
+    message: 'Successfully found contacts!',
+    data,
+  });
 };
 
 export const getContactByIdController = async (req, res) => {
