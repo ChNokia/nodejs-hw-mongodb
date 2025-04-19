@@ -14,6 +14,9 @@ export const getContacts = async ({
 
   const contactsQuery = ContactCollection.find();
 
+  if (filter.userId) {
+    contactsQuery.where('userId').equals(filter.userId);
+  }
   if (filter.type) {
     contactsQuery.where('contactType').equals(filter.type);
   }
@@ -56,15 +59,11 @@ export const deleteContact = async (id) => {
   return contact;
 };
 
-export const updateContact = async (id, payload, options = {}) => {
-  const rawResult = await ContactCollection.findOneAndUpdate(
-    { _id: id },
-    payload,
-    {
-      includeResultMetadata: true,
-      ...options,
-    },
-  );
+export const updateContact = async (filter, payload, options = {}) => {
+  const rawResult = await ContactCollection.findOneAndUpdate(filter, payload, {
+    includeResultMetadata: true,
+    ...options,
+  });
 
   if (!rawResult || !rawResult.value) return null;
 

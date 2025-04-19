@@ -16,6 +16,7 @@ export const getContactsController = async (req, res) => {
   const { page, perPage } = parsePaginationParams(req.query);
   const { sortOrder, sortBy } = parseSortParams(req.query);
   const filter = parseFilterParams(req.query);
+  filter.userId = req.user._id;
 
   const data = await getContacts({
     page,
@@ -47,7 +48,13 @@ export const getContactByIdController = async (req, res) => {
 };
 
 export const createContactController = async (req, res) => {
-  const data = await createContact(req.body);
+  const { _id: userId } = req.user;
+  const payload = {
+    ...req.body,
+    userId,
+  };
+
+  const data = await createContact(payload);
 
   res.status(201).json({
     status: 201,
@@ -70,8 +77,9 @@ export const deleteContactController = async (req, res) => {
 
 export const updateContactController = async (req, res) => {
   const { contactId } = req.params;
+  const { _id: userId } = req.user;
 
-  const data = await updateContact(contactId, req.body);
+  const data = await updateContact({ contactId, userId }, req.body);
 
   if (!data) {
     throw createHttpError(404, 'Contact not found');
