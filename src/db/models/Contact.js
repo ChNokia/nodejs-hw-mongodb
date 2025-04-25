@@ -31,6 +31,11 @@ const contactSchema = new Schema(
       ref: 'users',
       required: true,
     },
+    photo: {
+      type: String,
+      require: false,
+      default: null,
+    },
   },
   {
     timestamps: true,
