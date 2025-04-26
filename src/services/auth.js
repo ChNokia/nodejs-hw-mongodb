@@ -17,7 +17,6 @@ import UserCollection from '../db/models/User.js';
 import SessionsCollection from '../db/models/Session.js';
 import { sendEmail } from '../utils/sendEmail.js';
 import { getEnvVar } from '../utils/getEnvVar.js';
-import { error } from 'node:console';
 
 const verifyEmailPath = path.join(TEMPLATES_DIR, 'verify-email.html');
 
