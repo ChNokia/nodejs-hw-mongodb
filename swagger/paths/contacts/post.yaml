@@ -15,7 +15,6 @@ requestBody:
           - phoneNumber
           - isFavourite
           - contactType
-          - userId
         properties:
           name:
             description: "Contact's name"
